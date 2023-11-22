@@ -2,9 +2,13 @@
     box-sizing: border-box;
 }
 
+body {
+    margin-left: 50px;
+}
+
 .calcbody {
     background-color: lightgray;
-    height: 800px;
+    height: 950px;
     width: 670px;
     border-radius: 20px;
     padding: 20px;
@@ -42,12 +46,13 @@
 .operatorkeys {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 10px;
-    height: 500px;
+    height: 450px;
     width: 100px;
     margin-top: 20px;
     margin-left:20px;
-}
+ }
 
 .key {
     border: 3px solid orange;
@@ -58,6 +63,12 @@
     font-size: 1.5em;
     color: white;
 
+}
+
+.keyequals {
+    margin: 15px 50px;
+    text-align: center;
+    font-size: 2em;
 }
 
 .keydown {
