@@ -3,8 +3,16 @@
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
+let displayValue = "0";
 
-console.log (calculate("*", 2, 3));
+const calcDisplay = document.querySelector('#display');
+
+calcDisplay.textContent = displayValue; // clear the display
+
+//let's listen for input
+
+
+
 
 
 function calculate(operator, firstNumber, secondNumber){
