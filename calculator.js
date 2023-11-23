@@ -35,23 +35,26 @@ const buttondivide = document.querySelector("#keydivide");
 const buttonequals = document.querySelector("#keyequals");
 
 //and listen for input
-button0.addEventListener("click", () => {buttonClick(0)});
-button1.addEventListener("click", () => {buttonClick(1)});
-button2.addEventListener("click", () => {buttonClick(2)});
-button3.addEventListener("click", () => {buttonClick(3)});
-button4.addEventListener("click", () => {buttonClick(4)});
-button5.addEventListener("click", () => {buttonClick(5)});
-button6.addEventListener("click", () => {buttonClick(6)});
-button7.addEventListener("click", () => {buttonClick(7)});
-button8.addEventListener("click", () => {buttonClick(8)});
-button9.addEventListener("click", () => {buttonClick(9)});
-buttonpoint.addEventListener("click", () => {buttonClick("point")});
-buttonclear.addEventListener("click", () => {buttonClick("clear")});
-buttonadd.addEventListener("click", () => {buttonClick("add")});
-buttonsubtract.addEventListener("click", () => {buttonClick("subtract")});
-buttonmultiply.addEventListener("click", () => {buttonClick("multiply")});
-buttondivide.addEventListener("click", () => {buttonClick("divide")});
-buttonequals.addEventListener("click", () => {buttonClick("equals")});
+button0.addEventListener("click", () => {numberClick(0)});
+button1.addEventListener("click", () => {numberClick(1)});
+button2.addEventListener("click", () => {numberClick(2)});
+button3.addEventListener("click", () => {numberClick(3)});
+button4.addEventListener("click", () => {numberClick(4)});
+button5.addEventListener("click", () => {numberClick(5)});
+button6.addEventListener("click", () => {numberClick(6)});
+button7.addEventListener("click", () => {numberClick(7)});
+button8.addEventListener("click", () => {numberClick(8)});
+button9.addEventListener("click", () => {numberClick(9)});
+buttonpoint.addEventListener("click", () => {numberClick("point")});
+
+buttonclear.addEventListener("click", () => {clearClick()});
+
+buttonadd.addEventListener("click", () => {operatorClick("add")});
+buttonsubtract.addEventListener("click", () => {operatorClick("subtract")});
+buttonmultiply.addEventListener("click", () => {operatorClick("multiply")});
+buttondivide.addEventListener("click", () => {operatorClick("divide")});
+
+buttonequals.addEventListener("click", () => {equalsClick()});
 
 
 // I think we're going to need to push the values onto an array for firstNumber, until the operator is chosen
@@ -64,51 +67,109 @@ buttonequals.addEventListener("click", () => {buttonClick("equals")});
 
 //handle button presses
 
-function buttonClick(value){
+function numberClick(value){
      
-    // is it a number or an operator?
+    // just handle numbers
 
     if (!operatorFlag){
-        if (typeof value === "string"){                     //it's an operator!
-            if (value === "equals") {
-                writeDisplay(currentArray.join(""));
-
-            } else {
-            operator = value;                               //note the operator
-            operatorFlag = true;                            //flag it
-            firstNumber = parseInt(currentArray.join(""));    //get that first number numerized
-            currentArray.splice(0, currentArray.length);    //erase currentArray
-            console.log(firstNumber);
-            console.log(firstNumber*2);
-            }
-        } else {
-                currentArray.push(value);
-                console.log("you're typing numbers into the first array!")
-                writeDisplay(currentArray.join(""));
-                console.log(currentArray);
-            }
-    }
-
-    if (operatorFlag) {
-        if (typeof value === "number"){
-                currentArray.push(value);
-                console.log("YOU'RE THERE!");
-                writeDisplay(currentArray.join(""));
-                console.log(currentArray);
-        } else {
-            if (value === "equals") {
-                secondNumber = parseInt(currentArray.join(""));
-                result = calculate(operator, firstNumber, secondNumber);
-                writeDisplay(result);
-                currentArray.splice(0, currentArray.length);
-                currentArray.push(result);
-              }
-
-         }
-      
-    }
+        currentArray.push(value);
+        console.log("you're typing numbers into the first array!")
+        writeDisplay(currentArray.join(""));
+        console.log(currentArray);
+    } else {
+        currentArray.push(value);
+        console.log("You're typing numbers into the second array!");
+        writeDisplay(currentArray.join(""));
+        console.log(currentArray);
+        }
 
 }
+
+function operatorClick(value){
+
+    operator = value;                               //note the operator
+    operatorFlag = true;                            //flag it
+    firstNumber = parseInt(currentArray.join(""));  //get that first number numerized
+    currentArray.splice(0, currentArray.length);    //erase currentArray
+    console.log(firstNumber);                       // TESTING - note number
+    console.log(firstNumber*2);                     // TESTING - make sure it's mathable
+}
+
+function equalsClick(){
+
+    if ((firstArray.length = 0)||(secondArray.length = 0)){
+        return firstNumber;
+    }
+
+    secondNumber = parseInt(currentArray.join(""));
+    result = calculate(operator, firstNumber, secondNumber);
+    writeDisplay(result);
+    currentArray.splice(0, currentArray.length);
+    currentArray.push(result);
+}
+
+function clearClick(){
+
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = "";
+    operatorFlag = false;
+    currentArray.splice(0, currentArray.length);
+    firstArray.splice(0, firstArray.length);
+    secondArray.splice(0, secondArray.length);
+    writeDisplay(firstNumber);
+
+
+
+}
+
+
+
+// function numberClick(value){
+     
+//     // is it a number or an operator?
+
+//     if (!operatorFlag){
+//         if (typeof value === "string"){                     //it's an operator!
+//             if (value === "equals") {
+//                 writeDisplay(currentArray.join(""));
+
+//             } else {
+//             operator = value;                               //note the operator
+//             operatorFlag = true;                            //flag it
+//             firstNumber = parseInt(currentArray.join(""));    //get that first number numerized
+//             currentArray.splice(0, currentArray.length);    //erase currentArray
+//             console.log(firstNumber);
+//             console.log(firstNumber*2);
+//             }
+//         } else {
+//                 currentArray.push(value);
+//                 console.log("you're typing numbers into the first array!")
+//                 writeDisplay(currentArray.join(""));
+//                 console.log(currentArray);
+//             }
+//     }
+
+//     if (operatorFlag) {
+//         if (typeof value === "number"){
+//                 currentArray.push(value);
+//                 console.log("YOU'RE THERE!");
+//                 writeDisplay(currentArray.join(""));
+//                 console.log(currentArray);
+//         } else {
+//             if (value === "equals") {
+//                 secondNumber = parseInt(currentArray.join(""));
+//                 result = calculate(operator, firstNumber, secondNumber);
+//                 writeDisplay(result);
+//                 currentArray.splice(0, currentArray.length);
+//                 currentArray.push(result);
+//               }
+
+//          }
+      
+//     }
+
+// }
 
 
 
@@ -146,18 +207,19 @@ function calculate(operator, firstNumber, secondNumber){
 
 //perform basic arithmetic
 function add(firstNumber, secondNumber) {
-    return firstNumber + secondNumber;
+
+    return parseFloat((firstNumber + secondNumber).toPrecision(8));
 }
 
 function subtract(firstNumber, secondNumber) {
-    return firstNumber - secondNumber;
+    return parseFloat((firstNumber - secondNumber).toPrecision(8));
 }
 
 function multiply(firstNumber, secondNumber) {
-    return firstNumber * secondNumber;
+    return parseFloat((firstNumber * secondNumber).toPrecision(8));
 }
 
 function divide(firstNumber, secondNumber) {
-    return firstNumber / secondNumber;
+    return parseFloat((firstNumber / secondNumber).toPrecision(8));
 }
 
