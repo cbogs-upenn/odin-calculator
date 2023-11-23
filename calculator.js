@@ -2,12 +2,17 @@
 
 let firstNumber = 0;
 let secondNumber = 0;
+let result = 0;
+const currentArray = [];
+const firstArray = [];
+const secondArray = [];
 let operator = "";
-let displayValue = "0";
+let operatorFlag = false;
+let initialDisplayValue = "0";
 
 const calcDisplay = document.querySelector('#display');
 
-calcDisplay.textContent = displayValue; // clear the display
+calcDisplay.textContent = initialDisplayValue; // clear the display
 
 //let's make the buttons
 
@@ -30,130 +35,111 @@ const buttondivide = document.querySelector("#keydivide");
 const buttonequals = document.querySelector("#keyequals");
 
 //and listen for input
-button0.addEventListener("click", () => {buttonClick("button0")});
-button1.addEventListener("click", () => {buttonClick("button1")});
-button2.addEventListener("click", () => {buttonClick("button2")});
-button3.addEventListener("click", () => {buttonClick("button3")});
-button4.addEventListener("click", () => {buttonClick("button4")});
-button5.addEventListener("click", () => {buttonClick("button5")});
-button6.addEventListener("click", () => {buttonClick("button6")});
-button7.addEventListener("click", () => {buttonClick("button7")});
-button8.addEventListener("click", () => {buttonClick("button8")});
-button9.addEventListener("click", () => {buttonClick("button9")});
-buttonpoint.addEventListener("click", () => {buttonClick("buttonpoint")});
-buttonclear.addEventListener("click", () => {buttonClick("buttonclear")});
-buttonadd.addEventListener("click", () => {buttonClick("buttonadd")});
-buttonsubtract.addEventListener("click", () => {buttonClick("buttonsubtract")});
-buttonmultiply.addEventListener("click", () => {buttonClick("buttonmultiply")});
-buttondivide.addEventListener("click", () => {buttonClick("buttondivide")});
-buttonequals.addEventListener("click", () => {buttonClick("buttonequals")});
+button0.addEventListener("click", () => {buttonClick(0)});
+button1.addEventListener("click", () => {buttonClick(1)});
+button2.addEventListener("click", () => {buttonClick(2)});
+button3.addEventListener("click", () => {buttonClick(3)});
+button4.addEventListener("click", () => {buttonClick(4)});
+button5.addEventListener("click", () => {buttonClick(5)});
+button6.addEventListener("click", () => {buttonClick(6)});
+button7.addEventListener("click", () => {buttonClick(7)});
+button8.addEventListener("click", () => {buttonClick(8)});
+button9.addEventListener("click", () => {buttonClick(9)});
+buttonpoint.addEventListener("click", () => {buttonClick("point")});
+buttonclear.addEventListener("click", () => {buttonClick("clear")});
+buttonadd.addEventListener("click", () => {buttonClick("add")});
+buttonsubtract.addEventListener("click", () => {buttonClick("subtract")});
+buttonmultiply.addEventListener("click", () => {buttonClick("multiply")});
+buttondivide.addEventListener("click", () => {buttonClick("divide")});
+buttonequals.addEventListener("click", () => {buttonClick("equals")});
 
 
 // I think we're going to need to push the values onto an array for firstNumber, until the operator is chosen
-// and then do the same for secondNumber until the equals is hit
+// and then do the same for secondNumber until the equals (or another operator) is hit
 // then flatten those to strings and numerize them, then do the compute.
+
+// need to handle decimals
+// maybe separate out numerals and operators into separate functions, this would save a lot of if-thens
 
 
 //handle button presses
 
-function buttonClick(button){
+function buttonClick(value){
      
-    switch(button){
-        case "button0":
-            writeDisplay("0");
-            break;
-        
-        case "button1":
-            writeDisplay("1");
-            break;
+    // is it a number or an operator?
 
-        case "button2":
-            writeDisplay("2");
-            break;
-            
-        case "button3":
-            console.log("3 was pressed");
-            break;
+    if (!operatorFlag){
+        if (typeof value === "string"){                     //it's an operator!
+            if (value === "equals") {
+                writeDisplay(currentArray.join(""));
 
-        case "button4":
-            console.log("4 was pressed");
-            break;
-
-        case "button5":
-            console.log("5 was pressed");
-            break;
-
-        case "button6":
-            console.log("6 was pressed");
-            break;
-
-        case "button7":
-            console.log("7 was pressed");
-            break;
-            
-        case "button8":
-            console.log("8 was pressed");
-            break;
-
-        case "button9":
-            console.log("9 was pressed");
-            break;
-
-        case "buttonpoint":
-            console.log(". was pressed");
-            break;
-
-        case "buttonclear":
-            console.log("clear was pressed");
-            break;
-
-        case "buttonadd":
-        console.log("+ was pressed");
-        break;
-
-        case "buttonsubtract":
-            console.log("- was pressed");
-            break;
-
-        case "buttonmultiply":
-            console.log("* was pressed");
-            break;
-
-        case "buttondivide":
-            console.log("/ was pressed");
-            break;
-        
-        case "buttonequals":
-            console.log("= was pressed");
-            break;
-
-
+            } else {
+            operator = value;                               //note the operator
+            operatorFlag = true;                            //flag it
+            firstNumber = parseInt(currentArray.join(""));    //get that first number numerized
+            currentArray.splice(0, currentArray.length);    //erase currentArray
+            console.log(firstNumber);
+            console.log(firstNumber*2);
+            }
+        } else {
+                currentArray.push(value);
+                console.log("you're typing numbers into the first array!")
+                writeDisplay(currentArray.join(""));
+                console.log(currentArray);
+            }
     }
-    
+
+    if (operatorFlag) {
+        if (typeof value === "number"){
+                currentArray.push(value);
+                console.log("YOU'RE THERE!");
+                writeDisplay(currentArray.join(""));
+                console.log(currentArray);
+        } else {
+            if (value === "equals") {
+                secondNumber = parseInt(currentArray.join(""));
+                result = calculate(operator, firstNumber, secondNumber);
+                writeDisplay(result);
+                currentArray.splice(0, currentArray.length);
+                currentArray.push(result);
+              }
+
+         }
+      
+    }
+
 }
+
+
 
 //write things to the display
 function writeDisplay(input){
     calcDisplay.textContent = input;
 }
 
+function whichArray(){
+    if (operator !== "") {    //then we're on the second array
+        return "secondArray";
+    } else {return "firstArray";}  // be sure to clear the operator after the operation!
+}
+
 
 //handle calculations
 function calculate(operator, firstNumber, secondNumber){
     switch(operator){
-        case "+":
+        case "add":
             return add(firstNumber, secondNumber);
             break;
         
-        case "-":
+        case "subtract":
             return subtract(firstNumber, secondNumber);
             break;
 
-        case "*":
+        case "multiply":
             return multiply(firstNumber, secondNumber);
             break;
         
-        case "/":
+        case "divide":
             return divide(firstNumber, secondNumber);
     }
 }
