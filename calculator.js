@@ -87,12 +87,17 @@ function numberClick(value){
 
 function operatorClick(value){
 
+    if (operatorFlag){
+        equalsClick();
+    } else {
+
     operator = value;                               //note the operator
     operatorFlag = true;                            //flag it
     firstNumber = parseInt(currentArray.join(""));  //get that first number numerized
     currentArray.splice(0, currentArray.length);    //erase currentArray
     console.log(firstNumber);                       // TESTING - note number
-    console.log(firstNumber*2);                     // TESTING - make sure it's mathable
+    //console.log(firstNumber*2);                     // TESTING - make sure it's mathable
+}
 }
 
 function equalsClick(){
@@ -100,6 +105,8 @@ function equalsClick(){
     if ((firstArray.length = 0)||(secondArray.length = 0)){
         return firstNumber;
     }
+
+    operatorFlag = false;
 
     secondNumber = parseInt(currentArray.join(""));
     result = calculate(operator, firstNumber, secondNumber);
@@ -122,55 +129,6 @@ function clearClick(){
 
 
 }
-
-
-
-// function numberClick(value){
-     
-//     // is it a number or an operator?
-
-//     if (!operatorFlag){
-//         if (typeof value === "string"){                     //it's an operator!
-//             if (value === "equals") {
-//                 writeDisplay(currentArray.join(""));
-
-//             } else {
-//             operator = value;                               //note the operator
-//             operatorFlag = true;                            //flag it
-//             firstNumber = parseInt(currentArray.join(""));    //get that first number numerized
-//             currentArray.splice(0, currentArray.length);    //erase currentArray
-//             console.log(firstNumber);
-//             console.log(firstNumber*2);
-//             }
-//         } else {
-//                 currentArray.push(value);
-//                 console.log("you're typing numbers into the first array!")
-//                 writeDisplay(currentArray.join(""));
-//                 console.log(currentArray);
-//             }
-//     }
-
-//     if (operatorFlag) {
-//         if (typeof value === "number"){
-//                 currentArray.push(value);
-//                 console.log("YOU'RE THERE!");
-//                 writeDisplay(currentArray.join(""));
-//                 console.log(currentArray);
-//         } else {
-//             if (value === "equals") {
-//                 secondNumber = parseInt(currentArray.join(""));
-//                 result = calculate(operator, firstNumber, secondNumber);
-//                 writeDisplay(result);
-//                 currentArray.splice(0, currentArray.length);
-//                 currentArray.push(result);
-//               }
-
-//          }
-      
-//     }
-
-// }
-
 
 
 //write things to the display
