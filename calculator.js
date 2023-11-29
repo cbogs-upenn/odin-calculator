@@ -46,7 +46,7 @@ button6.addEventListener("click", () => {numberClick(6)});
 button7.addEventListener("click", () => {numberClick(7)});
 button8.addEventListener("click", () => {numberClick(8)});
 button9.addEventListener("click", () => {numberClick(9)});
-buttonpoint.addEventListener("click", () => {numberClick("point")});
+//buttonpoint.addEventListener("click", () => {numberClick(".")});
 
 buttonclear.addEventListener("click", () => {clearClick()});
 
@@ -101,9 +101,9 @@ function operatorClick(value){
 
 function equalsClick(){
 
-    if ((firstArray.length === 0)||(secondArray.length === 0)){
-        return firstNumber;
-    }
+    // if ((firstNumber === 0)||(secondArray.length === 0)){
+    //     return firstNumber;
+    // }
 
     operatorFlag = false;
     evaluateEquation();
