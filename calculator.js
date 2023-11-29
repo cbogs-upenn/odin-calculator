@@ -77,7 +77,7 @@ function numberClick(value){
 function operatorClick(value){
 
     if (operatorFlag){
-        tempOperator = value;  //note the new operator and hold it till after func
+        tempOperator = value;  //note the new operator and hold it till after calculation
         secondNumber = parseInt(currentArray.join(""));
         evaluateEquation();  // currentArray now has the result
         operator = tempOperator; // now we can store that permanently
