@@ -7,6 +7,7 @@ const currentArray = [];
 const firstArray = [];
 const secondArray = [];
 let operator = "";
+let tempOperator = "";
 let operatorFlag = false;
 let initialDisplayValue = "0";
 
@@ -71,24 +72,22 @@ function numberClick(value){
      
     // just handle numbers
 
-    if (!operatorFlag){
-        currentArray.push(value);
-        console.log("you're typing numbers into the first array!")
-        writeDisplay(currentArray.join(""));
-        console.log(currentArray);
-    } else {
-        currentArray.push(value);
-        console.log("You're typing numbers into the second array!");
-        writeDisplay(currentArray.join(""));
-        console.log(currentArray);
-        }
+    currentArray.push(value);
+    writeDisplay(currentArray.join(""));
+    console.log(currentArray);
 
 }
 
 function operatorClick(value){
 
     if (operatorFlag){
-        equalsClick();
+        tempOperator = value;  //note the new operator and hold it till after func
+        secondNumber = parseInt(currentArray.join(""));
+        evaluateEquation();  // currentArray now has the result
+        operator = tempOperator; // now we can store that permanently
+        firstNumber = parseInt(currentArray.join("")); // so move it to firstNumber
+        currentArray.splice(0, currentArray.length);   //erase currentArray        
+
     } else {
 
     operator = value;                               //note the operator
@@ -102,18 +101,16 @@ function operatorClick(value){
 
 function equalsClick(){
 
-    if ((firstArray.length = 0)||(secondArray.length = 0)){
+    if ((firstArray.length === 0)||(secondArray.length === 0)){
         return firstNumber;
     }
 
     operatorFlag = false;
-
-    secondNumber = parseInt(currentArray.join(""));
-    result = calculate(operator, firstNumber, secondNumber);
-    writeDisplay(result);
-    currentArray.splice(0, currentArray.length);
-    currentArray.push(result);
+    evaluateEquation();
 }
+
+
+
 
 function clearClick(){
 
@@ -142,6 +139,15 @@ function whichArray(){
     } else {return "firstArray";}  // be sure to clear the operator after the operation!
 }
 
+function evaluateEquation(){
+   
+    secondNumber = parseInt(currentArray.join(""));
+    result = calculate(operator, firstNumber, secondNumber);
+    writeDisplay(result);
+    currentArray.splice(0, currentArray.length);
+    currentArray.push(result);
+
+}
 
 //handle calculations
 function calculate(operator, firstNumber, secondNumber){
