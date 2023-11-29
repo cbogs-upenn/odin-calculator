@@ -64,6 +64,10 @@ function numberClick(value){
      
     // just handle numbers
 
+    if (currentArray.length >= 10){             //cut 'em off at 10 digits dawg
+        return;
+    }
+
     currentArray.push(value);
     writeDisplay(currentArray.join(""));
     console.log(currentArray);
@@ -168,7 +172,7 @@ function calculate(operator, firstNumber, secondNumber){
         case "divide":
             if (secondNumber === 0){
                 console.log("NO.");
-                alert("NO.");
+                alert("We do not divide by zero in this house, young lady.");
                 return 0;
             } else {
             return divide(firstNumber, secondNumber);
