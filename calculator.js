@@ -98,9 +98,13 @@ function operatorClick(value){
 
 function equalsClick(){
 
-    // if ((firstNumber === 0)||(secondArray.length === 0)){
-    //     return firstNumber;
-    // }
+    if (currentArray.length <= 0) {
+        return;
+    }
+
+    if (!operatorFlag) {
+        return;
+    }
 
     operatorFlag = false;
     evaluateEquation();
