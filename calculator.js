@@ -58,14 +58,6 @@ buttondivide.addEventListener("click", () => {operatorClick("divide")});
 buttonequals.addEventListener("click", () => {equalsClick()});
 
 
-// I think we're going to need to push the values onto an array for firstNumber, until the operator is chosen
-// and then do the same for secondNumber until the equals (or another operator) is hit
-// then flatten those to strings and numerize them, then do the compute.
-
-// need to handle decimals
-// maybe separate out numerals and operators into separate functions, this would save a lot of if-thens
-
-
 //handle button presses
 
 function numberClick(value){
@@ -90,13 +82,18 @@ function operatorClick(value){
 
     } else {
 
-    operator = value;                               //note the operator
-    operatorFlag = true;                            //flag it
-    firstNumber = parseInt(currentArray.join(""));  //get that first number numerized
-    currentArray.splice(0, currentArray.length);    //erase currentArray
-    console.log(firstNumber);                       // TESTING - note number
-    //console.log(firstNumber*2);                     // TESTING - make sure it's mathable
-}
+        if (currentArray.length <= 0){      // sometimes the op key is first, catch it
+            return;
+        } else {
+
+        operator = value;                               //note the operator
+        operatorFlag = true;                            //flag it
+        firstNumber = parseInt(currentArray.join(""));  //get that first number numerized
+        currentArray.splice(0, currentArray.length);    //erase currentArray
+        console.log(firstNumber);                       // TESTING - note number
+        //console.log(firstNumber*2);                     // TESTING - make sure it's mathable
+        }
+    }
 }
 
 function equalsClick(){
@@ -165,7 +162,14 @@ function calculate(operator, firstNumber, secondNumber){
             break;
         
         case "divide":
+            if (secondNumber === 0){
+                console.log("NO.");
+                alert("NO.");
+                return 0;
+            } else {
             return divide(firstNumber, secondNumber);
+            }
+            break;
     }
 }
 
