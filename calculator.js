@@ -70,7 +70,7 @@ function numberClick(value){
 
     currentArray.push(value);
     writeDisplay(currentArray.join(""));
-    console.log(currentArray);
+    //console.log(currentArray);
 
 }
 
@@ -94,7 +94,7 @@ function operatorClick(value){
         operatorFlag = true;                            //flag it
         firstNumber = parseInt(currentArray.join(""));  //get that first number numerized
         currentArray.splice(0, currentArray.length);    //erase currentArray
-        console.log(firstNumber);                       // TESTING - note number
+        //console.log(firstNumber);                       // TESTING - note number
         //console.log(firstNumber*2);                     // TESTING - make sure it's mathable
         }
     }
